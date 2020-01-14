@@ -1,86 +1,84 @@
-package com.example.tabbedactivity;
+package com.example.timetable;
 
-import android.annotation.TargetApi;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.viewpager.widget.ViewPager;
+import android.view.View;
 
-import com.google.android.material.tabs.TabLayout;
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
+
+import com.example.timetable.classes.ClassFragment;
+import com.google.android.material.navigation.NavigationView;
 import com.michaelflisar.changelog.ChangelogBuilder;
 import com.michaelflisar.changelog.classes.DefaultAutoVersionNameFormatter;
 import com.michaelflisar.changelog.classes.ImportanceChangelogSorter;
 
-public class MainActivity extends AppCompatActivity {
-
-    public static final String myPreference = "mypref";
-    public static final String themeKey = "themeKey";
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";
-    SharedPreferences sharedPreferences;
+    private  DrawerLayout drawer;
+    private Fragment fragment;
+    private SwitchCompat switchNightMode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        //Handles shared preferences
-        sharedPreferences = getSharedPreferences(myPreference,
-                Context.MODE_PRIVATE);
-        if (sharedPreferences.contains(themeKey)) {
-            if (sharedPreferences.getString(themeKey, "").equals("1")) {
-                setTheme(R.style.DarkTheme);
-            }
-//            } else {
-////                setTheme(R.style.AppTheme);
-//            }
-        } else {
-            Log.d(TAG, "onCreate:  in else");
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(themeKey, "0");
-            editor.apply();
-            restartApp();//Bug fix for app not showing ActionBar on first install
-        }
-        //Sets the main activity layout
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        new SectionsPageAdapter(getSupportFragmentManager());
+        switchNightMode = findViewById(R.id.switchNightMode);
 
-        ViewPager viewPager = findViewById(R.id.view_pager);
-        setupViewPager(viewPager);
+        int currentMode = AppCompatDelegate.getDefaultNightMode();
 
-        //Set the tab layout and its qualities
-        TabLayout tabLayout = findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(viewPager);
-        tabLayout.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-
-        String versionCode = AboutActivity.appVersion(MainActivity.this);
-        SharedPreferences preferences = getSharedPreferences("PREF", 0);
-        boolean firstRun = preferences.getBoolean("firstRun" + versionCode, true);
-
-        if (firstRun) {
-            // show changelog
-            showChangelog();
-            // update status of firstRun
-            preferences = getSharedPreferences("PREF", 0);
-            SharedPreferences.Editor editor = preferences.edit();
-            editor.putBoolean("firstRun" + versionCode, false);
-            editor.apply();
-
+        if (currentMode == AppCompatDelegate.MODE_NIGHT_YES ){
+            switchNightMode.setChecked(true);
+        }else{
+            switchNightMode.setChecked(false);
         }
 
-    }
+        switchNightMode.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked){
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            }
+            else {
+                AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+            restartCurrentActivity();
+        });
 
+        drawer = findViewById(R.id.drawer);
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.setNavigationItemSelectedListener(this);
+        ActionBarDrawerToggle drawerToggle = new ActionBarDrawerToggle(this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+
+        drawer.addDrawerListener(drawerToggle);
+        drawerToggle.syncState();
+
+        if (savedInstanceState == null){
+            fragment = new ClassFragment();
+            setTitle(R.string.classes);
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
+            navigationView.setCheckedItem(R.id.nav_classes);
+        }
+        showChangelog();
+
+    }
+    public void restartCurrentActivity() {
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+    }
     private void showChangelog() {
         ChangelogBuilder builder = new ChangelogBuilder()
                 .withUseBulletList(true)
+                .withManagedShowOnStart(true)
                 .withSorter(new ImportanceChangelogSorter())
                 .withVersionNameFormatter(new DefaultAutoVersionNameFormatter(DefaultAutoVersionNameFormatter.Type.MajorMinor, "b"));
         builder.buildAndShowDialog(this, false);
@@ -89,88 +87,44 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        //Creates the menu inflater
-        getMenuInflater().inflate(R.menu.menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (sharedPreferences.getString(themeKey, "").equals("1")) {
-            menu.findItem(R.id.dark_theme).setTitle("Light Theme");
-            menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_dot_menu_white);
+    public void onBackPressed() {
+        if (drawer.isDrawerOpen(GravityCompat.START)) {
+            drawer.closeDrawer(GravityCompat.START);
         } else {
-            menu.findItem(R.id.dark_theme).setTitle("Dark Theme");
-            menu.findItem(R.id.three_dot_menu).setIcon(R.drawable.three_button_menu);
+            super.onBackPressed();
         }
-        return super.onPrepareOptionsMenu(menu);
     }
-
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        //Handles clicks on clicked menu items
-        int id = item.getItemId();
-
-        if (id == R.id.dark_theme) {
-            //Add additional features to change the themes
-            if (sharedPreferences.getString(themeKey, "").equals("1")) {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(themeKey, "0");
-                editor.apply();
-            } else {
-                SharedPreferences.Editor editor = sharedPreferences.edit();
-                editor.putString(themeKey, "1");
-                editor.apply();
-            }
-
-            //Restart app to employ changes
-            restartApp();
+    public boolean onNavigationItemSelected(MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.nav_classes:
+                fragment =  new ClassFragment();
+                setTitle(R.string.classes);
+                break;
+            case R.id.nav_exams:
+                fragment =  new ExamsFragment();
+                setTitle(R.string.exams);
+                break;
         }
-        if (id == R.id.about) {
-            Intent openAboutPage = new Intent(this, AboutActivity.class);
-            startActivity(openAboutPage);
+        if (fragment != null) {
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).commit();
         }
+
+        drawer.closeDrawer(GravityCompat.START);
         return true;
     }
-
-    public void restartApp() {
-        Intent restartApp = new Intent(this, MainActivity.class);
-        startActivity(restartApp);
-        finish();
+    public void openSettingsActivity(View view){
+        Intent intent = new Intent(MainActivity.this, SettingsActivity.class);
+        startActivity(intent);
     }
 
-    @TargetApi(24)
-    private void setupViewPager(ViewPager viewPager) {
-        SectionsPageAdapter adapter = new SectionsPageAdapter(getSupportFragmentManager());
-
-        //Set the fragments for each activity on the tabbed layout
-        adapter.addFragment(new MonFragment(), "Monday");
-        adapter.addFragment(new TueFragment(), "Tuesday");
-        adapter.addFragment(new WedFragment(), "Wednesday");
-        adapter.addFragment(new ThurFragment(), "Thursday");
-        adapter.addFragment(new FriFragment(), "Friday");
-        viewPager.setAdapter(adapter);
-
-        //Retrieves the day of the week for devices with API 24 and above and opens the app on that tab
-        Calendar calendar = Calendar.getInstance();
-        int day = calendar.get(Calendar.DAY_OF_WEEK);
-        switch (day) {
-            case Calendar.TUESDAY:
-                viewPager.setCurrentItem(1);
-                break;
-            case Calendar.WEDNESDAY:
-                viewPager.setCurrentItem(2);
-                break;
-            case Calendar.THURSDAY:
-                viewPager.setCurrentItem(3);
-                break;
-            case Calendar.FRIDAY:
-                viewPager.setCurrentItem(4);
-                break;
-            default:
-                viewPager.setCurrentItem(0);
-                break;
-        }
+    public void openAboutActivity(View view) {
+        Intent intent = new Intent(MainActivity.this, AboutActivity.class);
+        startActivity(intent);
     }
+
+    public void setNightTheme(View view){
+        switchNightMode.toggle();
+    }
+
 }
