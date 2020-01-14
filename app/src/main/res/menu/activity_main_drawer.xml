@@ -1,4 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:checkableBehavior="single">
+        <item android:id="@+id/nav_classes"
+            android:icon="@drawable/ic_classes"
+            android:title="@string/classes"/>
+        <item android:id="@+id/nav_exams"
+            android:icon="@drawable/ic_exams"
+            android:title="@string/exams"/>
+    </group>
 
 </menu>
