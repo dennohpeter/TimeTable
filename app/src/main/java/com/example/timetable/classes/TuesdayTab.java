@@ -10,13 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.tabbedactivity.R;
+import com.example.timetable.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TueFragment extends Fragment {
-    private static final String TAG = "TueFragment";
+public class TuesdayTab extends Fragment {
+    private static final String TAG = "TuesdayTab";
 
     private RecyclerView recyclerView;
     private RecyclerView.Adapter adapter;

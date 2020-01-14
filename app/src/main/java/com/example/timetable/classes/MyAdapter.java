@@ -1,4 +1,4 @@
-package com.example.timetable;
+package com.example.timetable.classes;
 
 import android.content.Context;
 import androidx.annotation.NonNull;
@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.example.tabbedactivity.R;
+import com.example.timetable.R;
 
 import java.util.List;
 

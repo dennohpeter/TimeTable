@@ -1,4 +1,4 @@
-package com.example.timetable;
+package com.example.timetable.classes;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,24 +17,24 @@ public class SectionsPageAdapter extends FragmentPagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        Fragment fragment;
+        Fragment tab;
         switch (position) {
             case 1:
-                fragment = new TueFragment();
+                tab = new TuesdayTab();
                 break;
             case 2:
-                fragment = new WedFragment();
+                tab = new WednesdayTab();
                 break;
             case 3:
-                fragment = new ThurFragment();
+                tab = new ThursdayTab();
                 break;
             case 4:
-                fragment = new FriFragment();
+                tab = new FridayTab();
                 break;
             default:
-                fragment = new MonFragment();
+                tab = new MondayTab();
         }
-        return fragment;
+        return tab;
     }
 
     @Override

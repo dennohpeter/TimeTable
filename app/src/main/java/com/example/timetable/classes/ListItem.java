@@ -1,6 +1,6 @@
-package com.example.timetable;
+package com.example.timetable.classes;
 
-public class ListItem {
+class ListItem {
     private String head;
     private String desc;
     private String lesson;
