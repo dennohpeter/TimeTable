@@ -1,4 +1,4 @@
-package com.example.tabbedactivity;
+package com.example.timetable;
 
 import android.content.Context;
 import androidx.test.platform.app.InstrumentationRegistry;

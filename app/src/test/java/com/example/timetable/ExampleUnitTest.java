@@ -1,4 +1,4 @@
-package com.example.tabbedactivity;
+package com.example.timetable;
 
 import org.junit.jupiter.api.Test;
 
