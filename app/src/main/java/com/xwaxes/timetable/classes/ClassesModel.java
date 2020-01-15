@@ -1,27 +1,27 @@
 package com.xwaxes.timetable.classes;
 
 class ClassesModel {
-    private String head;
-    private String desc;
-    private String lesson;
-    private String lecturer;
+    private String unit_code_and_venue;
+    private String time;
+    private String unit_name;
+    private String lecturer_name;
 
-    ClassesModel(String head, String desc, String lesson, String lecturer) {
-        this.head = head;
-        this.desc = desc;
-        this.lesson = lesson;
-        this.lecturer = lecturer;
+    ClassesModel(String unit_code_and_venue, String time, String unit_name, String lecturer_name) {
+        this.unit_code_and_venue = unit_code_and_venue;
+        this.time = time;
+        this.unit_name = unit_name;
+        this.lecturer_name = lecturer_name;
     }
 
-    String getHead() {
-        return head;
+    String getUnitCodeAndVenue() {
+        return unit_code_and_venue;
     }
 
-    String getDesc() {
-        return desc;
+    String getTime() {
+        return time;
     }
 
-    String getLesson() { return lesson; }
+    String getUnitName() { return unit_name; }
 
-    String getLecturer() { return lecturer; }
+    String getLecturerName() { return lecturer_name; }
 }

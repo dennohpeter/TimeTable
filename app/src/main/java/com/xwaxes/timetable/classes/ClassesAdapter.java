@@ -1,24 +1,25 @@
 package com.xwaxes.timetable.classes;
 
 import android.content.Context;
-import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.xwaxes.timetable.R;
 
 import java.util.List;
 
-public class ClassesAdapter extends RecyclerView.Adapter <ClassesAdapter.ClassViewHolder> {
+public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassViewHolder> {
 
-    private List<ClassesModel> classesModel;
+    private List<ClassesModel> classes;
     private Context context;
 
-    ClassesAdapter(Context context, List<ClassesModel> classesModel) {
-        this.classesModel = classesModel;
+    ClassesAdapter(Context context, List<ClassesModel> classes) {
+        this.classes = classes;
         this.context = context;
     }
 
@@ -31,17 +32,17 @@ public class ClassesAdapter extends RecyclerView.Adapter <ClassesAdapter.ClassVi
 
     @Override
     public void onBindViewHolder(ClassViewHolder holder, int position) {
-        ClassesModel classesModel = this.classesModel.get(position);
+        ClassesModel lesson = this.classes.get(position);
 
-        holder.textViewHead.setText(classesModel.getHead());
-        holder.textViewDesc.setText(classesModel.getDesc());
-        holder.textViewLesson.setText(classesModel.getLesson());
-        holder.textViewLecturer.setText(classesModel.getLecturer());
+        holder.textViewHead.setText(lesson.getUnitCodeAndVenue());
+        holder.textViewDesc.setText(lesson.getTime());
+        holder.textViewLesson.setText(lesson.getUnitName());
+        holder.textViewLecturer.setText(lesson.getLecturerName());
     }
 
     @Override
     public int getItemCount() {
-        return classesModel.size();
+        return classes.size();
     }
 
     class ClassViewHolder extends RecyclerView.ViewHolder {
