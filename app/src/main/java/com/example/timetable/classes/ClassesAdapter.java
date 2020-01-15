@@ -25,7 +25,7 @@ public class ClassesAdapter extends RecyclerView.Adapter <ClassesAdapter.ClassVi
     @NonNull
     @Override
     public ClassViewHolder onCreateViewHolder(ViewGroup parent, int i) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_card, parent, false);
         return new ClassViewHolder(view);
     }
 
@@ -51,10 +51,10 @@ public class ClassesAdapter extends RecyclerView.Adapter <ClassesAdapter.ClassVi
         TextView textViewLesson;
         ClassViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewHead = itemView.findViewById(R.id.textViewHead);
-            textViewDesc = itemView.findViewById(R.id.textViewDesc);
-            textViewLesson = itemView.findViewById(R.id.lesson);
-            textViewLecturer = itemView.findViewById(R.id.lecturer);
+            textViewHead = itemView.findViewById(R.id.duration);
+            textViewDesc = itemView.findViewById(R.id.unit_code_and_venue);
+            textViewLesson = itemView.findViewById(R.id.unit_name);
+            textViewLecturer = itemView.findViewById(R.id.lecturer_name);
         }
     }
 }
