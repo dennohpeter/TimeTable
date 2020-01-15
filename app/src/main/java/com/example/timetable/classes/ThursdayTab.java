@@ -1,14 +1,13 @@
 package com.example.timetable.classes;
 
 import android.os.Bundle;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.timetable.R;
 
@@ -18,9 +17,6 @@ import java.util.List;
 public class ThursdayTab extends Fragment {
     private static final String TAG = "ThursdayTab";
 
-    private RecyclerView recyclerView;
-    private RecyclerView.Adapter adapter;
-    private List<ListItem> listItems;
     private String[] unitCodes = {"411"};
     private String[] startTimes = {"12"};
     private String[] endTimes = {"1"};
@@ -30,33 +26,24 @@ public class ThursdayTab extends Fragment {
 
     private int units = unitCodes.length;
 
-    @Nullable
     @Override
-    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.day_layoutfile, container, false);
-
-        return view;
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        recyclerView = view.findViewById(R.id.recycler_view);
+        RecyclerView recyclerView = view.findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        listItems = new ArrayList<>();
-
+        List<ClassesModel> classes = new ArrayList<>();
+        // generating classes and adding them to classes arrayList.
         for (int i = 0; i < units; i++) {
-            ListItem listItem = new ListItem(
+            classes.add( new ClassesModel(
                     startTimes[i] + ":00 - " + endTimes[i] + ":00",
                     "CCT " + unitCodes[i] + " | " + rooms[i],
                     unitNames[i],
                     lecturers[i]
-            );
-            listItems.add(listItem);
+            ));
         }
-
-        adapter = new MyAdapter(listItems, getContext());
+        ClassesAdapter adapter = new ClassesAdapter(getContext(), classes);
         recyclerView.setAdapter(adapter);
+        return view;
     }
 }

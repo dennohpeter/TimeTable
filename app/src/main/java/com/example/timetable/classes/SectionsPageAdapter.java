@@ -8,7 +8,6 @@ import androidx.fragment.app.FragmentPagerAdapter;
 public class SectionsPageAdapter extends FragmentPagerAdapter {
     private int numOfTabs;
 
-
     SectionsPageAdapter(FragmentManager fm, int numOfTabs) {
         super(fm);
         this.numOfTabs = numOfTabs;
