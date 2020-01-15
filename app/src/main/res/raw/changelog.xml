@@ -1,34 +1,26 @@
 <changelog>
     <release
+        date="2020-01-20"
+        version="200">
+        <bugfix>Improved App performance</bugfix>
+
+        <new>Added Exams Section</new>
+        <new>Added Search Unit Feature</new>
+        <new>Added Push Notification in Settings</new>
+        <new>Improved user interface</new>
+        <new>Class units now load from Firebase on initial launch</new>
+
+        <todo>Update app theme</todo>
+        <todo>Fix app crashing when enable night mode from settings</todo>
+        <todo>Improve class card design</todo>
+        <todo>Add Unit modification feature</todo>
+        <todo>Add small ads</todo>
+
+    </release>
+    <release
         date="2019-11-01"
-        versionCode="120">
-        <info>Some info 1 - apostrophe test: it's weird, but apostrophes do not work in precompiled
-            xml files placed in xml resources!
-        </info>
+        versionCode="100">
         <new type="summary">Added Changelog</new>
         <bugfix>Toolbar Crash fix</bugfix>
-        <info>Some info 2</info>
-        <new type="summary">Some improvement 2</new>
-        <bugfix>Some bugfix 2</bugfix>
-        <info>Some info 3</info>
-        <new>Some improvement 3</new>
-        <bugfix>Some bugfix 3</bugfix>
-        <customTag>My custom tag text...</customTag>
-    </release>
-    <release
-        date="2019-10-04"
-        versionCode="115">
-        <info>Some info</info>
-        <new type="summary">Some improvement</new>
-        <bugfix>Some bugfix</bugfix>
-    </release>
-    <release
-        date="2019-09-03"
-        filter="theme"
-        versionCode="1"
-        versionName="Version 1.10">
-        <info>Some dogs info - filter only set in release tag</info>
-        <new type="summary">Night theme</new>
-        <bugfix>Crash bugfix</bugfix>
     </release>
 </changelog>
