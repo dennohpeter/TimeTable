@@ -19,6 +19,7 @@ import com.google.android.material.navigation.NavigationView;
 import com.michaelflisar.changelog.ChangelogBuilder;
 import com.michaelflisar.changelog.classes.DefaultAutoVersionNameFormatter;
 import com.michaelflisar.changelog.classes.ImportanceChangelogSorter;
+import com.xwaxes.timetable.exams.ExamsFragment;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     private static final String TAG = "MainActivity";

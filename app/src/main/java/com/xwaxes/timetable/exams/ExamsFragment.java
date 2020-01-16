@@ -1,4 +1,4 @@
-package com.xwaxes.timetable;
+package com.xwaxes.timetable.exams;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;

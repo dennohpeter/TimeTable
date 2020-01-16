@@ -1,4 +1,4 @@
 package com.xwaxes.timetable.exams;
 
-class ExamsModel {
+public class ExamsModel {
 }
