@@ -2,13 +2,16 @@
     <string name="app_name">Timetable</string>
     <!--    Developer names and Roles -->
     <string name="creator">Kenneth Murerwa</string>
-    <string name="creator_roles">Maintainer</string>
+    <string name="creator_roles">Creator</string>
 
     <string name="contributor1">Dennis Peterson</string>
     <string name="developer1_roles">Developer</string>
 
     <string name="contributor2">Alex Muturi</string>
-    <string name="developer2_roles">Contributor</string>
+    <string name="developer2_roles">Developer</string>
+
+    <string name="contributor3">Alex Churkin</string>
+    <string name="developer3_roles">Developer</string>
 
     <string name="empty">Wow, such empty</string>
 <!--    About activity  -->
