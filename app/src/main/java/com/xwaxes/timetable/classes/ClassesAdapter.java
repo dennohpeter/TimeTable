@@ -34,10 +34,11 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
     public void onBindViewHolder(ClassViewHolder holder, int position) {
         ClassesModel lesson = this.classes.get(position);
 
-        holder.textViewHead.setText(lesson.getUnitCodeAndVenue());
-        holder.textViewDesc.setText(lesson.getTime());
-        holder.textViewLesson.setText(lesson.getUnitName());
-        holder.textViewLecturer.setText(lesson.getLecturerName());
+        holder.time.setText(lesson.getTime());
+        holder.unit_code_and_venue.setText(lesson.getUnitCodeAndVenue());
+        holder.unit_name.setText(lesson.getUnitName());
+        holder.lecturer_name.setText(lesson.getLecturerName());
+        holder.unit_category.setText(lesson.getUnitCategory());
     }
 
     @Override
@@ -46,16 +47,15 @@ public class ClassesAdapter extends RecyclerView.Adapter<ClassesAdapter.ClassVie
     }
 
     class ClassViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewHead;
-        TextView textViewDesc;
-        TextView textViewLecturer;
-        TextView textViewLesson;
+        TextView time, unit_code_and_venue, lecturer_name, unit_name, unit_category;
+
         ClassViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewHead = itemView.findViewById(R.id.duration);
-            textViewDesc = itemView.findViewById(R.id.unit_code_and_venue);
-            textViewLesson = itemView.findViewById(R.id.unit_name);
-            textViewLecturer = itemView.findViewById(R.id.lecturer_name);
+            time = itemView.findViewById(R.id.duration);
+            unit_code_and_venue = itemView.findViewById(R.id.unit_code_and_venue);
+            unit_name = itemView.findViewById(R.id.unit_name);
+            lecturer_name = itemView.findViewById(R.id.lecturer_name);
+            unit_category = itemView.findViewById(R.id.unit_category);
         }
     }
 }

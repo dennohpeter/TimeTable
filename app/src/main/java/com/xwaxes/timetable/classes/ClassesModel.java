@@ -31,4 +31,14 @@ public class ClassesModel {
         return unit_category;
     }
 
+    @Override
+    public String toString() {
+        return "ClassesModel{" +
+                "unit_code_and_venue='" + unit_code_and_venue + '\'' +
+                ", time='" + time + '\'' +
+                ", unit_name='" + unit_name + '\'' +
+                ", lecturer_name='" + lecturer_name + '\'' +
+                ", unit_category='" + unit_category + '\'' +
+                '}';
+    }
 }

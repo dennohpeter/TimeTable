@@ -14,8 +14,8 @@ import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.xwaxes.timetable.R;
 import com.google.android.material.tabs.TabLayout;
+import com.xwaxes.timetable.R;
 
 import java.util.Calendar;
 
@@ -62,6 +62,7 @@ private ViewPager viewPager;
         setDefaultTab();
         return root;
     }
+
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {

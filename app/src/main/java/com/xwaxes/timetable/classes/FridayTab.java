@@ -11,7 +11,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xwaxes.timetable.DatabaseHelper;
+import com.xwaxes.timetable.ReadFromFileHelper;
 import com.xwaxes.timetable.R;
 
 import java.util.List;
@@ -28,8 +28,7 @@ public class FridayTab extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        List<ClassesModel> classes = databaseHelper.getClasses(databaseHelper.getReadableDatabase(), "classes", "mon");
+        List<ClassesModel> classes = new ReadFromFileHelper(getContext(), R.raw.friday).classes();
         populateRecyclerView(classes);
         return view;
     }

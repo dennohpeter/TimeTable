@@ -10,7 +10,7 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.xwaxes.timetable.DatabaseHelper;
+import com.xwaxes.timetable.ReadFromFileHelper;
 import com.xwaxes.timetable.R;
 
 import java.util.List;
@@ -18,14 +18,6 @@ import java.util.List;
 public class ThursdayTab extends Fragment {
     private static final String TAG = "ThursdayTab";
 
-//    private String[] unitCodes = {"411"};
-//    private String[] startTimes = {"12"};
-//    private String[] endTimes = {"1"};
-//    private String[] unitNames = {"Neural Networks"};
-//    private String[] lecturers = {"Okoyo"};
-//    private String[] rooms = {"TB2"};
-
-//    private int units = unitCodes.length;
     private RecyclerView recyclerView;
     private LinearLayout no_classes;
 
@@ -36,8 +28,7 @@ public class ThursdayTab extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
-        List<ClassesModel> classes = databaseHelper.getClasses(databaseHelper.getReadableDatabase(), "classes", "thurs");
+        List<ClassesModel> classes = new ReadFromFileHelper(getContext(), R.raw.thursday).classes();
         populateRecyclerView(classes);
         return view;
     }
