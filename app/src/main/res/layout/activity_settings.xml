@@ -1,7 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
@@ -12,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="setNightTheme"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/dark_theme"
@@ -38,7 +36,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/notifications"
@@ -65,7 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:onClick="showChangelog"
-        android:padding="16dp">
+        android:padding="20dp">
 
         <TextView
             android:id="@+id/show_changelog"
@@ -73,6 +71,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/show_changelog" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_arrow_right"
+            android:layout_alignRight="@id/show_changelog"
+            android:layout_alignEnd="@id/show_changelog"
+            android:contentDescription="@string/show_changelog" />
     </RelativeLayout>
 
     <View

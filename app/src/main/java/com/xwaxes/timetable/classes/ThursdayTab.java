@@ -4,46 +4,56 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.xwaxes.timetable.DatabaseHelper;
 import com.xwaxes.timetable.R;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ThursdayTab extends Fragment {
     private static final String TAG = "ThursdayTab";
 
-    private String[] unitCodes = {"411"};
-    private String[] startTimes = {"12"};
-    private String[] endTimes = {"1"};
-    private String[] unitNames = {"Neural Networks"};
-    private String[] lecturers = {"Okoyo"};
-    private String[] rooms = {"TB2"};
+//    private String[] unitCodes = {"411"};
+//    private String[] startTimes = {"12"};
+//    private String[] endTimes = {"1"};
+//    private String[] unitNames = {"Neural Networks"};
+//    private String[] lecturers = {"Okoyo"};
+//    private String[] rooms = {"TB2"};
 
-    private int units = unitCodes.length;
+//    private int units = unitCodes.length;
+    private RecyclerView recyclerView;
+    private LinearLayout no_classes;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.week_day, container, false);
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerView);
+        no_classes = view.findViewById(R.id.no_classes);
+        recyclerView = view.findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        List<ClassesModel> classes = new ArrayList<>();
-        // generating classes and adding them to classes arrayList.
-        for (int i = 0; i < units; i++) {
-            classes.add( new ClassesModel(
-                    startTimes[i] + ":00 - " + endTimes[i] + ":00",
-                    "CCT " + unitCodes[i] + " | " + rooms[i],
-                    unitNames[i],
-                    lecturers[i]
-            ));
-        }
-        ClassesAdapter adapter = new ClassesAdapter(getContext(), classes);
-        recyclerView.setAdapter(adapter);
+        DatabaseHelper databaseHelper = new DatabaseHelper(getContext());
+        List<ClassesModel> classes = databaseHelper.getClasses(databaseHelper.getReadableDatabase(), "classes", "thurs");
+        populateRecyclerView(classes);
         return view;
     }
+    private void populateRecyclerView(List<ClassesModel> classes) {
+        if (classes.size() == 0 ){
+            recyclerView.setVisibility(View.GONE);
+            no_classes.setVisibility(View.VISIBLE);
+
+        }
+        else {
+            recyclerView.setVisibility(View.VISIBLE);
+            no_classes.setVisibility(View.GONE);
+        }
+
+        ClassesAdapter adapter = new ClassesAdapter(getContext(), classes);
+        recyclerView.setAdapter(adapter);
+    }
+
 }

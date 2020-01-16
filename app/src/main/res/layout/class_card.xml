@@ -68,6 +68,18 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/unit_name" />
 
+            <TextView
+                android:id="@+id/unit_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:text="@string/unit_category"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.885"
+                app:layout_constraintRight_toRightOf="@+id/lecturer_name"
+                app:layout_constraintStart_toEndOf="@+id/lecturer_name"
+                app:layout_constraintTop_toBottomOf="@+id/unit_name" />
+
         </androidx.constraintlayout.widget.ConstraintLayout>
         <View
             android:layout_gravity="bottom"

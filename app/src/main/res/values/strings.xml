@@ -43,7 +43,8 @@
     <!--    Class card attributes   -->
     <string name="unit_name">Unit Name</string>
     <string name="lecturer_name">Lecturer Name</string>
-    <string name="unit_code_and_venue">Unit Code | Venue></string>
+    <string name="unit_code_and_venue">Unit Code | Venue</string>
     <string name="duration">StartTime - EndTime</string>
     <string name="show_changelog">Show App Changelog</string>
+    <string name="unit_category">Core | Opt</string>
 </resources>
