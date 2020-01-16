@@ -2,7 +2,6 @@ package com.xwaxes.timetable;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
@@ -20,58 +19,14 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 
 public class AboutActivity extends AppCompatActivity {
 
-    public static final String myPreference = "mypref";
-    public static final String themeKey = "themeKey";
-    SharedPreferences sharedPreferences;
-//    Button contribute, bugReport, feedback;
-    TextView version;
+    private String version_number;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_about);
-        Toolbar toolbar = findViewById(R.id.about_toolbar);
-        setSupportActionBar(toolbar);
-        // setting back button on toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
-
-        // setting app version
-        version = findViewById(R.id.app_version);
-        String version_number = getApplicationContext()
-                .getString(R.string.app_version, appVersion(AboutActivity.this));
-        version.setText(version_number);
-    }
-
-    public void send_feedback(View view) {
-        //Add extras and launch intent to send email
-        Intent feedbackEmailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", "xwaxes@gmail.com", null))//Set recipient and open primary mail client
-                .putExtra(Intent.EXTRA_SUBJECT, "Feedback")//Set email subject
-                .putExtra(Intent.EXTRA_TEXT, "This is my feedback on the app:" +
-                        "\n");//Set email body
-        startActivity(Intent.createChooser(feedbackEmailIntent, null));
-    }
-
-    public void contribute(View view) {
-        //Get system date for bug report
-        Date bugReportDate = Calendar.getInstance().getTime();
-
-        //Add extras and launch intent to send email
-        Intent bugReportEmailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
-                "mailto", "xwaxes@gmail.com", null))//Set recipient and open primary mail client
-                .putExtra(Intent.EXTRA_SUBJECT, "Bug Report")//Set email subject
-                .putExtra(Intent.EXTRA_TEXT, "While using your app on " + bugReportDate + ", I discovered this bug:" +
-                        "\n");//Set email body
-        startActivity(Intent.createChooser(bugReportEmailIntent, null));
-    }
     /*
      * Takes Activity Context and returns a String of the App Version e.g 1.0
      */
@@ -88,6 +43,45 @@ public class AboutActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_about);
+        Toolbar toolbar = findViewById(R.id.about_toolbar);
+        setSupportActionBar(toolbar);
+        // setting back button on toolbar
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+        // setting app version_textView
+        TextView version_textView = findViewById(R.id.app_version);
+        version_number = getApplicationContext()
+                .getString(R.string.app_version, appVersion(AboutActivity.this));
+        version_textView.setText(version_number);
+    }
+
+    public void send_feedback(View view) {
+        String subject = "Feedback For "
+                + getString(R.string.app_name)
+                + " " + version_number;
+        //Add extras and launch intent to send email
+        Intent feedbackEmailIntent = new Intent(Intent.ACTION_SENDTO,
+                Uri.fromParts("mailto", "xwaxes@gmail.com", null))
+                .putExtra(Intent.EXTRA_SUBJECT, subject);
+        startActivity(Intent.createChooser(feedbackEmailIntent, subject));
+    }
+
+    public void contribute(View view) {
+        //Add extras and launch intent to send email
+        Intent contribute = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                "mailto", "xwaxes@gmail.com", null))
+                .putExtra(Intent.EXTRA_SUBJECT, "Contribution")
+                .putExtra(Intent.EXTRA_TEXT,
+                        "Please contact us if you want to help improve this app:) \n" +
+                                "As a small reward, we will add your name to list of contributors.");//Set email body
+        startActivity(Intent.createChooser(contribute, "Contribution"));
+    }
+
     public void showCredit(View view) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle(R.string.credits);
@@ -97,12 +91,13 @@ public class AboutActivity extends AppCompatActivity {
         contributor_roles.put(getString(R.string.creator), getString(R.string.creator_roles));
         contributor_roles.put(getString(R.string.contributor1), getString(R.string.developer1_roles));
         contributor_roles.put(getString(R.string.contributor2), getString(R.string.developer2_roles));
+        contributor_roles.put(getString(R.string.contributor3), getString(R.string.developer3_roles));
 
         List<HashMap<String, String>> listItem = new ArrayList<>();
 
         ListView listView = popupLayout.findViewById(R.id.list);
 
-        SimpleAdapter adapter = new SimpleAdapter(this,listItem,R.layout.contributor_list_item,
+        SimpleAdapter adapter = new SimpleAdapter(this, listItem, R.layout.contributor_list_item,
                 new String[]{"name", "role"},
                 new int[]{R.id.contributor_name, R.id.developer_role});
         for (Map.Entry<String, String> pair : contributor_roles.entrySet()) {
